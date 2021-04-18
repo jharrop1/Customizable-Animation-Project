@@ -1,0 +1,26 @@
+# initializes the canvas, with top-left corner (200,70) and
+# dimensions 500x500
+canvas 100 100 500 500
+# declares a rectangle shape named R
+shape R1 rectangle
+# describes the motions of shape R, between two moments of animation:
+# t == tick
+# (x,y) == position
+# (w,h) == dimensions
+# (r,g,b) == color (with values between 0 and 255)
+#                  start                                end
+#        --------------------------         ----------------------------
+#        t  x   y   w  h   r   g  b         t   x   y   w  h   r   g  b
+motion R1 1  100 100 100 100 100 100 100   10  200 200 50 100 255 0 0
+motion R1 10  200 200 50 100 255 0 0       50  400 400 50 100 255 0 230
+motion R1 50  400 400 50 100 255 0 230     51  400 400 50 100 255 0 230
+motion R1 51  400 400 50 100 255 0 230     70  1 1 25 100 255 0 0
+motion R1 70  1 1 25 100 255 0 0           100 200 200 25 100 0 0 0
+
+shape C1 ellipse
+motion C1 6  440 70 120 60 0 222 255 # start state
+         20 440 70 120 60 222 0 255 # end state
+motion C1 20 440 70 120 60 222 0 255      50 100 120 120 120 15 25 200
+motion C1 50 100 120 120 120 15 25 200     70 440 370 120 60 0 170 85
+motion C1 70 440 370 120 60 0 170 85    80 15 15 120 60 255 255 0
+motion C1 80 15 15 120 60 255 255 0    100 440 370 300 300 255 25 20
