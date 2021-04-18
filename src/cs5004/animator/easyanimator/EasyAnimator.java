@@ -59,10 +59,10 @@ public class EasyAnimator {
       }
     }
 
-    if (fileNameIn.equals("") || fileNameOut.equals("")) {
+    if (fileNameIn.equals("")) {
       JFrame noFiles = new JFrame();
       JOptionPane.showMessageDialog(noFiles, "Warning",
-          "Both file names must be provided.", JOptionPane.WARNING_MESSAGE);
+              "Input file name must be provided.", JOptionPane.WARNING_MESSAGE);
     } else if (viewType == null) {
       JFrame noType = new JFrame();
       JOptionPane.showMessageDialog(noType, "Warning",
@@ -73,14 +73,20 @@ public class EasyAnimator {
           "Provided speed must be positive.", JOptionPane.WARNING_MESSAGE);
     }
     try {
-      FileWriter fileOut = new FileWriter(fileNameOut);
       // build model with file reader
       FileReader fileIn = new FileReader(fileNameIn);
       AnimationModel model = AnimationReader.parseFile(fileIn,
-          new AnimationModelImpl.Builder());
-      IView view = ViewMaker.makeView(viewType, model, fileOut, speed);
-      view.run();
-      fileOut.close();
+              new AnimationModelImpl.Builder());
+      if (!fileNameOut.equals("")) {
+        FileWriter fileOut = new FileWriter(fileNameOut);
+        IView view = ViewMaker.makeView(viewType, model, fileOut, speed);
+        view.run();
+        fileOut.close();
+      } else {
+        IView view = ViewMaker.makeView(viewType, model, System.out, speed);
+        view.run();
+      }
+
     } catch (IOException e) {
       // fileNameOut not a file
       try {

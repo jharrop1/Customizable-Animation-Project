@@ -143,7 +143,7 @@ public class SVGView implements IView {
                       - model.getCanvas().getY())
                       + "\" to=\"" + (change.getReference().getY() - model.getCanvas().getY())
                       + "\" fill=\"freeze\" />\n");
-                // Resizes a rectangle
+              // Resizes a rectangle
             } else if (change.getType().equals(AvailableChanges.RESIZE)
                     && shape.getType().equals(AvailableShapes.RECTANGLE)) {
               //Resizes the width
