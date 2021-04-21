@@ -42,8 +42,7 @@ public class PlayBackView extends JFrame implements IView, ActionListener {
     this.mainPanel = new PlaybackPanel(canvasDimensions);
     mainPanel.setPreferredSize(canvasDimensions);
     JScrollPane pane = new JScrollPane(mainPanel);
-    pane.setPreferredSize(new Dimension(model.getCanvas().getWidth(),
-            model.getCanvas().getWidth()));
+    pane.setPreferredSize(canvasDimensions);
     this.add(mainPanel, BorderLayout.CENTER);
 
 
@@ -57,7 +56,6 @@ public class PlayBackView extends JFrame implements IView, ActionListener {
     loopButton.addMouseListener(new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent e) {
-        System.out.print("testing");
         super.mousePressed(e);
       }
     });
@@ -79,6 +77,7 @@ public class PlayBackView extends JFrame implements IView, ActionListener {
       @Override
       public void mousePressed(MouseEvent e) {
         timer.restart();
+        currentTick = 0;
         super.mousePressed(e);
       }
     });
@@ -111,7 +110,6 @@ public class PlayBackView extends JFrame implements IView, ActionListener {
     increaseSpeedButton.addMouseListener(new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent e) {
-        setSpeed(1);
         super.mousePressed(e);
       }
     });
