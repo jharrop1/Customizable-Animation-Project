@@ -4,7 +4,7 @@ package cs5004.animator.view;
  * Enum for the different view types available.
  */
 public enum ViewType {
-  TEXT, VISUAL, SVG;
+  TEXT, VISUAL, SVG, PLAYBACK;
 
   /**
    * Given a good string input will provide the corresponding view type. Helps with string parsing
@@ -21,6 +21,8 @@ public enum ViewType {
         return ViewType.TEXT;
       case "svg":
         return ViewType.SVG;
+      case "playback":
+        return ViewType.PLAYBACK;
       default:
         throw new IllegalArgumentException("given view type does not exist");
     }
