@@ -1,5 +1,6 @@
 package cs5004.animator.controller;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.Timer;
@@ -36,8 +37,8 @@ public class Controller implements IController, ActionListener {
 
 
   @Override
-  void toggleLooping() {
-
+  public void toggleLooping() {
+    return;
   }
 
   @Override
@@ -48,14 +49,18 @@ public class Controller implements IController, ActionListener {
   }
 
   @Override
-  void restart() {
-
+  public void restart() {
+    return;
   }
 
 
   @Override
-  void adjustSpeed(int speed){
+  public void adjustSpeed(int speed){
 
   }
 
+  @Override
+  public void actionPerformed(ActionEvent e) {
+
+  }
 }

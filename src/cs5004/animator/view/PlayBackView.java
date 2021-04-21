@@ -23,22 +23,29 @@ public class PlayBackView extends JFrame implements IView, ActionListener {
   private Timer timer;
   private int currentTick = 0;
 
-  public PlayBackView(AnimationModel model) {
+  public PlayBackView(AnimationModel model, int speed) {
     super();
     this.model = model;
+    this.speed = speed;
     this.setTitle("Playback View.");
+    Dimension canvasDimensions = new Dimension(model.getCanvas().getWidth() + model.getCanvas().getX(),
+            model.getCanvas().getHeight() + model.getCanvas().getY());
+
 
     //Sets the size and the canvass offset
-    this.setSize(new Dimension(model.getCanvas().getWidth(), model.getCanvas().getHeight()));
-    Point2D point = new Point2D(model.getCanvas().getX(), model.getCanvas().getY());
-    //this.mainPanel = new PlaybackPanel(point, new Dimension(model.getCanvas().getWidth(), model.getCanvas().getHeight()))
+    this.setSize(model.getCanvas().getWidth(), model.getCanvas().getHeight());
+    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    //Point2D point = new Point2D(model.getCanvas().getX(), model.getCanvas().getY()); //is this needed?
 
     //Set preferred pane
+    this.setLayout(new BorderLayout());
+    this.mainPanel = new PlaybackPanel(canvasDimensions);
+    mainPanel.setPreferredSize(canvasDimensions);
     JScrollPane pane = new JScrollPane(mainPanel);
     pane.setPreferredSize(new Dimension(model.getCanvas().getWidth(),
             model.getCanvas().getWidth()));
-    this.getContentPane().add(pane, BorderLayout.CENTER);
-    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.add(mainPanel, BorderLayout.CENTER);
+
 
     //Button Panel
     buttonPanel = new JPanel();
@@ -50,9 +57,11 @@ public class PlayBackView extends JFrame implements IView, ActionListener {
     loopButton.addMouseListener(new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent e) {
+        System.out.print("testing");
         super.mousePressed(e);
       }
     });
+    buttonPanel.add(loopButton);
 
     //Start animation from beginning
     startButton = new JButton("Start");
@@ -62,51 +71,62 @@ public class PlayBackView extends JFrame implements IView, ActionListener {
         super.mousePressed(e);
       }
     });
+    buttonPanel.add(startButton);
 
     //Restart animation from beginning, basically the same as start
-    restartButton = new JButton("Restart0");
+    restartButton = new JButton("Restart");
     restartButton.addMouseListener(new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent e) {
+        timer.restart();
         super.mousePressed(e);
       }
     });
+    buttonPanel.add(restartButton);
 
     // Pause button
     pauseButton = new JButton("Pause");
     pauseButton.addMouseListener(new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent e) {
+        timer.stop();
         super.mousePressed(e);
       }
     });
+    buttonPanel.add(pauseButton);
 
     //Resume animation from pause button
     resumeButton = new JButton("Resume");
     resumeButton.addMouseListener(new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent e) {
+        timer.start();
         super.mousePressed(e);
       }
     });
+    buttonPanel.add(resumeButton);
 
     //Resume animation from pause button
     increaseSpeedButton = new JButton("Speed +");
     increaseSpeedButton.addMouseListener(new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent e) {
+        setSpeed(1);
         super.mousePressed(e);
       }
     });
+    buttonPanel.add(increaseSpeedButton);
 
     //Resume animation from pause button
     decreaseSpeedButton = new JButton("Speed -");
     decreaseSpeedButton.addMouseListener(new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent e) {
+        setSpeed(-1);
         super.mousePressed(e);
       }
     });
+    buttonPanel.add(decreaseSpeedButton);
 
     //Quit Button
     quitButton = new JButton("Quit");
@@ -114,7 +134,8 @@ public class PlayBackView extends JFrame implements IView, ActionListener {
     buttonPanel.add(quitButton);
 
     this.timer = new Timer(1000 / this.speed, this);
-    this.speed = 1;
+
+    this.pack();
   }
 
   @Override
