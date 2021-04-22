@@ -165,6 +165,10 @@ public interface AnimationModel {
    */
   AnimationModel getShapesAtTick(int tick);
 
+  int getFinalTime();
+
+  void setFinalTime(int finalTime);
+
   /**
    * Generates a description of the model's shapes and changes to those shapes.
    * @return string describing the model

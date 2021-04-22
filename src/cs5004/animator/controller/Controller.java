@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.Timer;
 
+import cs5004.animator.model.AbstractChange;
 import cs5004.animator.model.AnimationModel;
 import cs5004.animator.view.IView;
 
@@ -15,6 +16,7 @@ public class Controller implements IController, ActionListener {
   private Timer timer;
   private int currentTick = 1;
   private boolean looping = false;
+  private int finalTime;
 
 
   public Controller(AnimationModel model, IView view, int speed) {
@@ -38,7 +40,9 @@ public class Controller implements IController, ActionListener {
 
   @Override
   public void toggleLooping() {
-    return;
+    if (this.getTick() >= model.getFinalTime()) {
+      setTick(1);
+    }
   }
 
   @Override
@@ -50,7 +54,7 @@ public class Controller implements IController, ActionListener {
 
   @Override
   public void restart() {
-    return;
+    setTick(1);
   }
 
 

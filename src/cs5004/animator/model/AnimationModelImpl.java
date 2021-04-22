@@ -17,6 +17,7 @@ public class AnimationModelImpl implements AnimationModel {
   private final HashMap<String, AbstractShape> shapeMap;
   private final HashMap<AbstractChange, String> changeMap;
   private final Canvas canvas;
+  private int finalTime = 0;
 
   /**
    * Constructor for the animation model impl.
@@ -49,6 +50,14 @@ public class AnimationModelImpl implements AnimationModel {
     List<AbstractChange> sortedChangeList = changes
             .stream().sorted(byStartTime).collect(Collectors.toList());
     return changes;
+  }
+  @Override
+  public int getFinalTime() {
+    return finalTime;
+  }
+
+  public void setFinalTime(int finalTime) {
+    this.finalTime = finalTime;
   }
 
   @Override
@@ -444,6 +453,9 @@ public class AnimationModelImpl implements AnimationModel {
         } else {
           model.getShape(name).setOpacity(0);
         }
+      }
+      if (t2 > model.getFinalTime()) {
+        model.setFinalTime(t2);
       }
 
       //could enclose the first 3 in a if statement to encompass so the t only adds once
