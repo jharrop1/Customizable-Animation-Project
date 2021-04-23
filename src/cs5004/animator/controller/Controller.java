@@ -49,7 +49,7 @@ public class Controller implements IController, ActionListener {
     } else if (type.equals(ViewType.VISUAL)) {
       this.view = new VisualView(model, speed);
     } else if (type.equals(ViewType.PLAYBACK)) {
-      this.view = new PlayBackView(this);
+      this.view = new PlayBackView(this.model);
     } else {
       throw new IllegalArgumentException("Type must be an IView (text, svg, visual)");
     }

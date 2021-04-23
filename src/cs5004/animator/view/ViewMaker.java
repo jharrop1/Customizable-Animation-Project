@@ -36,7 +36,7 @@ public class ViewMaker {
     } else if (type.equals(ViewType.VISUAL)) {
       return new VisualView(model, speed);
     } else if (type.equals(ViewType.PLAYBACK)) {
-      return new PlayBackView(controller);
+      return new PlayBackView(model);
     } else {
       throw new IllegalArgumentException("Type must be an IView (text, svg, visual)");
     }

@@ -16,20 +16,17 @@ import cs5004.animator.model.Point2D;
 
 public class PlayBackView extends JFrame implements IView, ActionListener {
   private AnimationModel model;
-  private Controller controller;
   private JButton quitButton, loopButton, startButton, pauseButton, resumeButton,
           restartButton, increaseSpeedButton, decreaseSpeedButton;
   private JPanel buttonPanel;
   private PlaybackPanel mainPanel;
   private JLabel display;
   private int speed;
-  private Timer timer;
   private int currentTick = 0;
 
-  public PlayBackView(Controller controller) {
+  public PlayBackView(AnimationModel model) {
     super();
-    this.controller = controller;
-    this.model = controller.getModel();
+    this.model = model;
     this.setTitle("Playback View.");
     Dimension canvasDimensions = new Dimension(model.getCanvas().getWidth() + model.getCanvas().getX(),
             model.getCanvas().getHeight() + model.getCanvas().getY());
