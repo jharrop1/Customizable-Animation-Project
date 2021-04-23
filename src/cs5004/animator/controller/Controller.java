@@ -2,15 +2,22 @@ package cs5004.animator.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.Timer;
 
 import cs5004.animator.model.AbstractChange;
 import cs5004.animator.model.AnimationModel;
 import cs5004.animator.view.IView;
+import cs5004.animator.view.PlayBackView;
+import cs5004.animator.view.SVGView;
+import cs5004.animator.view.TextView;
 import cs5004.animator.view.ViewType;
+import cs5004.animator.view.VisualView;
 
 public class Controller implements IController, ActionListener {
+
+
   private AnimationModel model;
   private IView view;
   private int speed;
@@ -20,13 +27,32 @@ public class Controller implements IController, ActionListener {
   private int finalTime;
 
 
-  public Controller(AnimationModel model, IView view, int speed) {
+
+  public Controller(AnimationModel model, ViewType type, int speed, Appendable output) throws IOException {
+    if (model == null) {
+      throw new IllegalArgumentException("The provided model is null");
+    } else if (speed < 1) {
+      throw new IllegalArgumentException("The speed must be > 0");
+    }
+
     this.model = model;
-    this.view = view;
     this.speed = speed;
     //TODO: gotta set the action listener, see old visual view maybe for inspo
     this.timer = new Timer(1000 / this.speed, this);
     this.finalTime = model.getFinalTime();
+
+    //TODO figure out outputs for views
+    if (type.equals(ViewType.TEXT)) {
+      this.view = new TextView(model, output);
+    } else if (type.equals(ViewType.SVG)) {
+      this.view = new SVGView(model, output, speed);
+    } else if (type.equals(ViewType.VISUAL)) {
+      this.view = new VisualView(model, speed);
+    } else if (type.equals(ViewType.PLAYBACK)) {
+      this.view = new PlayBackView(this);
+    } else {
+      throw new IllegalArgumentException("Type must be an IView (text, svg, visual)");
+    }
   }
 
   @Override
@@ -45,6 +71,10 @@ public class Controller implements IController, ActionListener {
     if (this.getTick() >= model.getFinalTime()) {
       setTick(1);
     }
+  }
+
+  public AnimationModel getModel() {
+    return model;
   }
 
   @Override
@@ -78,12 +108,11 @@ public class Controller implements IController, ActionListener {
   }
 
   @Override
-  public void go(AnimationModel model, ViewType view) {
-    while(true) {
-      //call the visual view here, the ones without any mid view actions can end right after, the other 3 can go outside of the while loop`
-
-      //TODO below here put in the mid view actions for playback view, at the end of the loop return the model to the visual view?
-
+  public void go() throws IOException {
+    if(this.view.equals(ViewType.TEXT) || this.view.equals(ViewType.SVG) || this.view.equals(ViewType.VISUAL)) {
+      view.run();
+    } else {
+      view.run();
     }
   }
 

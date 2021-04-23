@@ -2,6 +2,7 @@ package cs5004.animator.view;
 
 import java.io.IOException;
 
+import cs5004.animator.controller.Controller;
 import cs5004.animator.model.AnimationModel;
 
 /**
@@ -19,7 +20,7 @@ public class ViewMaker {
    * @return A view (depends on which type given)
    * @throws IllegalArgumentException If the given model is null or if the speed is < 0
    */
-  public static IView makeView(ViewType type, AnimationModel model, Appendable output, int speed)
+  public static IView makeView(ViewType type, AnimationModel model, Controller controller, Appendable output, int speed)
           throws IllegalArgumentException, IOException {
     if (model == null) {
       throw new IllegalArgumentException("The provided model is null");
@@ -35,7 +36,7 @@ public class ViewMaker {
     } else if (type.equals(ViewType.VISUAL)) {
       return new VisualView(model, speed);
     } else if (type.equals(ViewType.PLAYBACK)) {
-      return new PlayBackView(model, speed);
+      return new PlayBackView(controller);
     } else {
       throw new IllegalArgumentException("Type must be an IView (text, svg, visual)");
     }

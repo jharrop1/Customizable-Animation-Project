@@ -1,5 +1,7 @@
 package cs5004.animator.controller;
 
+import java.io.IOException;
+
 import cs5004.animator.model.AnimationModel;
 import cs5004.animator.view.ViewType;
 
@@ -43,6 +45,6 @@ public interface IController {
    */
   void adjustSpeed(int speed);
 
-  void go(AnimationModel model, ViewType view);
+  void go() throws IOException;
 
 }

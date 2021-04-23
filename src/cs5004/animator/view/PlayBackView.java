@@ -10,10 +10,11 @@ import java.io.IOException;
 import javax.swing.*;
 
 import cs5004.animator.controller.Controller;
+import cs5004.animator.controller.IController;
 import cs5004.animator.model.AnimationModel;
 import cs5004.animator.model.Point2D;
 
-public class PlayBackView extends JFrame implements IView, ActionListener {
+public class PlayBackView extends JFrame implements IPlayBackView, ActionListener {
   private AnimationModel model;
   private Controller controller;
   private JButton quitButton, loopButton, startButton, pauseButton, resumeButton,
@@ -25,11 +26,10 @@ public class PlayBackView extends JFrame implements IView, ActionListener {
   private Timer timer;
   private int currentTick = 0;
 
-  public PlayBackView(AnimationModel model, int speed) {
+  public PlayBackView(Controller controller) {
     super();
     this.controller = controller;
-    this.model = model;
-    this.speed = speed;
+    this.model = controller.getModel();
     this.setTitle("Playback View.");
     Dimension canvasDimensions = new Dimension(model.getCanvas().getWidth() + model.getCanvas().getX(),
             model.getCanvas().getHeight() + model.getCanvas().getY());
@@ -80,8 +80,7 @@ public class PlayBackView extends JFrame implements IView, ActionListener {
     restartButton.addMouseListener(new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent e) {
-        timer.restart();
-        currentTick = 0;
+        controller.restart();
         super.mousePressed(e);
       }
     });
@@ -114,6 +113,7 @@ public class PlayBackView extends JFrame implements IView, ActionListener {
     increaseSpeedButton.addMouseListener(new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent e) {
+        controller.adjustSpeed(1);
         super.mousePressed(e);
       }
     });
@@ -124,7 +124,7 @@ public class PlayBackView extends JFrame implements IView, ActionListener {
     decreaseSpeedButton.addMouseListener(new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent e) {
-        setSpeed(-1);
+        controller.adjustSpeed(-1);
         super.mousePressed(e);
       }
     });
@@ -135,7 +135,8 @@ public class PlayBackView extends JFrame implements IView, ActionListener {
     quitButton.addActionListener((ActionEvent e) -> System.exit(0));
     buttonPanel.add(quitButton);
 
-    this.timer = new Timer(1000 / this.speed, this);
+    //this.timer = new Timer(1000 / this.speed, this);
+
 
     this.pack();
   }
@@ -155,22 +156,22 @@ public class PlayBackView extends JFrame implements IView, ActionListener {
 
   @Override
   public ViewType getViewType() {
-    return ViewType.PLAYBACK;
+    return null;
   }
 
   @Override
   public void setSpeed(int speed) throws UnsupportedOperationException {
-    //TODO can speed be less than 1?
-    if (speed > 0) {
-      this.speed = this.speed + 1;
-    } else if (speed < 0) {
-      this.speed = this.speed - 1;
-    }
+    return;
   }
 
   @Override
   public void actionPerformed(ActionEvent e) {
     this.setUpdatedShapes(this.currentTick);
     this.currentTick++;
+  }
+
+  @Override
+  public void setInputs(IController inputs) {
+
   }
 }

@@ -1,5 +1,6 @@
 package cs5004.animator.easyanimator;
 
+import cs5004.animator.controller.Controller;
 import cs5004.animator.model.AnimationModel;
 import cs5004.animator.model.AnimationModelImpl;
 import cs5004.animator.util.AnimationReader;
@@ -80,12 +81,12 @@ public class EasyAnimator {
               new AnimationModelImpl.Builder());
       if (!fileNameOut.equals("")) {
         FileWriter fileOut = new FileWriter(fileNameOut);
-        IView view = ViewMaker.makeView(viewType, model, fileOut, speed);
-        view.run();
+        Controller controller = new Controller(model, viewType, speed, fileOut);
+        controller.go();
         fileOut.close();
       } else {
-        IView view = ViewMaker.makeView(viewType, model, System.out, speed);
-        view.run();
+        Controller controller = new Controller(model, viewType, speed, System.out);
+        controller.go();
       }
 
     } catch (IOException e) {
@@ -98,8 +99,8 @@ public class EasyAnimator {
         FileReader fileIn = new FileReader(fileNameIn);
         AnimationModel model = AnimationReader.parseFile(fileIn,
             new AnimationModelImpl.Builder());
-        IView view = ViewMaker.makeView(viewType, model, fileOut, speed);
-        view.run();
+        Controller controller = new Controller(model, viewType, speed, fileOut);
+        controller.go();
         fileOut.close();
         //TODO: controller
       } catch (IOException ee) {
