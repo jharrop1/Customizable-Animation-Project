@@ -8,6 +8,7 @@ import javax.swing.Timer;
 import cs5004.animator.model.AbstractChange;
 import cs5004.animator.model.AnimationModel;
 import cs5004.animator.view.IView;
+import cs5004.animator.view.ViewType;
 
 public class Controller implements IController, ActionListener {
   private AnimationModel model;
@@ -25,6 +26,7 @@ public class Controller implements IController, ActionListener {
     this.speed = speed;
     //TODO: gotta set the action listener, see old visual view maybe for inspo
     this.timer = new Timer(1000 / this.speed, this);
+    this.finalTime = model.getFinalTime();
   }
 
   @Override
@@ -61,6 +63,16 @@ public class Controller implements IController, ActionListener {
   @Override
   public void adjustSpeed(int speed){
 
+  }
+
+  @Override
+  public void go(AnimationModel model, ViewType view) {
+    while(true) {
+      //call the visual view here, the ones without any mid view actions can end right after, the other 3 can go outside of the while loop`
+
+      //TODO below here put in the mid view actions for playback view, at the end of the loop return the model to the visual view?
+
+    }
   }
 
   @Override

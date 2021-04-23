@@ -1,5 +1,8 @@
 package cs5004.animator.controller;
 
+import cs5004.animator.model.AnimationModel;
+import cs5004.animator.view.ViewType;
+
 public interface IController {
 
   /**
@@ -39,5 +42,7 @@ public interface IController {
    * @param speed integer for updating speed.
    */
   void adjustSpeed(int speed);
+
+  void go(AnimationModel model, ViewType view);
 
 }

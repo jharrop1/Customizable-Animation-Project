@@ -9,11 +9,13 @@ import java.io.IOException;
 
 import javax.swing.*;
 
+import cs5004.animator.controller.Controller;
 import cs5004.animator.model.AnimationModel;
 import cs5004.animator.model.Point2D;
 
 public class PlayBackView extends JFrame implements IView, ActionListener {
   private AnimationModel model;
+  private Controller controller;
   private JButton quitButton, loopButton, startButton, pauseButton, resumeButton,
           restartButton, increaseSpeedButton, decreaseSpeedButton;
   private JPanel buttonPanel;
@@ -25,6 +27,7 @@ public class PlayBackView extends JFrame implements IView, ActionListener {
 
   public PlayBackView(AnimationModel model, int speed) {
     super();
+    this.controller = controller;
     this.model = model;
     this.speed = speed;
     this.setTitle("Playback View.");
@@ -56,6 +59,7 @@ public class PlayBackView extends JFrame implements IView, ActionListener {
     loopButton.addMouseListener(new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent e) {
+        controller.toggleLooping();
         super.mousePressed(e);
       }
     });
