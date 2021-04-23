@@ -61,7 +61,15 @@ public class Controller implements IController, ActionListener {
 
 
   @Override
-  public void adjustSpeed(int speed){
+  public void adjustSpeed(int factor){
+    // speed must be >= 1
+    if (factor + this.speed < 1) {
+      this.speed = 1;
+    } else {
+      this.speed += factor;
+    }
+    // reset timer rate
+    this.timer.setDelay(1000 / this.speed);
 
   }
 
