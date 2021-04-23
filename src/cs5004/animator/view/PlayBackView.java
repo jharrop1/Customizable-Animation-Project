@@ -14,7 +14,7 @@ import cs5004.animator.controller.IController;
 import cs5004.animator.model.AnimationModel;
 import cs5004.animator.model.Point2D;
 
-public class PlayBackView extends JFrame implements IPlayBackView, ActionListener {
+public class PlayBackView extends JFrame implements IView, ActionListener {
   private AnimationModel model;
   private Controller controller;
   private JButton quitButton, loopButton, startButton, pauseButton, resumeButton,
@@ -129,15 +129,11 @@ public class PlayBackView extends JFrame implements IPlayBackView, ActionListene
       }
     });
     buttonPanel.add(decreaseSpeedButton);
-
     //Quit Button
     quitButton = new JButton("Quit");
     quitButton.addActionListener((ActionEvent e) -> System.exit(0));
     buttonPanel.add(quitButton);
-
     //this.timer = new Timer(1000 / this.speed, this);
-
-
     this.pack();
   }
 
@@ -148,8 +144,13 @@ public class PlayBackView extends JFrame implements IPlayBackView, ActionListene
   }
 
   @Override
-  public void setUpdatedShapes(int currentTick) {
-    this.mainPanel.setAnimatedShapes(model.getShapesAtTick(currentTick));
+  public void setUpdatedShapes(int currentTick) throws UnsupportedOperationException {
+    throw new UnsupportedOperationException("PlayBack View cannot set updated shapes");
+  }
+
+  @Override
+  public void setCurrentShapes(AnimationModel model) {
+    this.mainPanel.setAnimatedShapes(model);
     // every child component calls paintComponent as a result
     this.repaint();
   }
@@ -170,8 +171,5 @@ public class PlayBackView extends JFrame implements IPlayBackView, ActionListene
     this.currentTick++;
   }
 
-  @Override
-  public void setInputs(IController inputs) {
 
-  }
 }

@@ -27,7 +27,12 @@ public class TextView implements IView {
 
   @Override
   public void setUpdatedShapes(int currentTick) throws UnsupportedOperationException {
-    throw new UnsupportedOperationException("SVG View cannot set updated shapes");
+    throw new UnsupportedOperationException("Text View cannot set updated shapes");
+  }
+
+  @Override
+  public void setCurrentShapes(AnimationModel model) {
+    throw new UnsupportedOperationException("Text View cannot set updated shapes");
   }
 
   @Override

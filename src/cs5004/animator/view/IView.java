@@ -2,6 +2,8 @@ package cs5004.animator.view;
 
 import java.io.IOException;
 
+import cs5004.animator.model.AnimationModel;
+
 /**
  * Interface for the view classes.
  */
@@ -18,6 +20,13 @@ public interface IView {
    * @throws UnsupportedOperationException If the view is an SVG/Text view.
    */
   void setUpdatedShapes(int currentTick);
+
+  /**
+   * Has (PlayBackView) view update its shapes for its canvas panel for the given tick.
+   * @param model The model holding the shapes at the current tick (from controller)
+   * @throws UnsupportedOperationException If the view is an SVG/Text/Visual view.
+   */
+  void setCurrentShapes(AnimationModel model);
 
   /**
    * Get the view's type (one of 3 types - visual, textual, SVG enum).

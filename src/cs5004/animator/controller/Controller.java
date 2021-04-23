@@ -90,7 +90,7 @@ public class Controller implements IController, ActionListener {
     if (this.timer.isRunning()) {
       this.timer.restart();
     } else {
-      this.view.setUpdatedShapes(1);
+      this.view.setCurrentShapes(model.getShapesAtTick(currentTick));
     }
   }
 

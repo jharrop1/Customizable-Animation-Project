@@ -223,6 +223,11 @@ public class SVGView implements IView {
     throw new UnsupportedOperationException("SVG View cannot set updated shapes");
   }
 
+  @Override
+  public void setCurrentShapes(AnimationModel model) {
+    throw new UnsupportedOperationException("SVG View cannot set updated shapes");
+  }
+
   /**
    * Returns the type of view.
    * @return the type of view.

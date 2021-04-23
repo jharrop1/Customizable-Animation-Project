@@ -64,6 +64,11 @@ public class VisualView extends JFrame implements IView, ActionListener {
   }
 
   @Override
+  public void setCurrentShapes(AnimationModel model) {
+    throw new UnsupportedOperationException("Visual View cannot set updated shapes");
+  }
+
+  @Override
   public ViewType getViewType() {
     return ViewType.VISUAL;
   }
