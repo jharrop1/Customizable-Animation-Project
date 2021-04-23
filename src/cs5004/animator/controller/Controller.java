@@ -50,13 +50,18 @@ public class Controller implements IController, ActionListener {
   @Override
   public void pause() {
     this.timer.stop();
-    // TODO: may have to havethe view replay the current loop on loop
+    // TODO: may have to have the view replay the current loop on loop
     //  or just display that set of shapes statically
   }
 
   @Override
   public void restart() {
-    setTick(1);
+    this.currentTick = 1;
+    if (this.timer.isRunning()) {
+      this.timer.restart();
+    } else {
+      this.view.setUpdatedShapes(1);
+    }
   }
 
 
@@ -70,7 +75,6 @@ public class Controller implements IController, ActionListener {
     }
     // reset timer rate
     this.timer.setDelay(1000 / this.speed);
-
   }
 
   @Override
