@@ -16,7 +16,9 @@ import javax.swing.JScrollPane;
 import cs5004.animator.model.AnimationModel;
 
 /**
- * Type of Iview representing the visual view.
+ * Type of Iview representing the PlayBack view. It is similar to visualview in that it
+ * generates a GUI, but delegates tick management to a controller and has buttons that allow
+ * the user to issue commands changing animation behaviors.
  */
 public class PlayBackView extends JFrame implements IView {
   JButton quitButton;

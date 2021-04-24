@@ -27,7 +27,6 @@ public class ViewMaker {
       throw new IllegalArgumentException("The speed must be > 0");
     }
 
-    //TODO figure out outputs for views
     if (type.equals(ViewType.TEXT)) {
       return new TextView(model, output);
     } else if (type.equals(ViewType.SVG)) {
