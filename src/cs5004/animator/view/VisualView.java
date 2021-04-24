@@ -23,6 +23,11 @@ public class VisualView extends JFrame implements IView, ActionListener {
   private Timer timer;
   private int currentTick = 0;
 
+  /**
+   * Constructor for the visual view.
+   * @param model the model the view represents.
+   * @param speed the speed to run the view at.
+   */
   public VisualView(AnimationModel model, int speed) {
     super();
     this.model = model;

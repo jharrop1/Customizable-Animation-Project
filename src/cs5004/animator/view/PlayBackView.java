@@ -1,37 +1,53 @@
 package cs5004.animator.view;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import cs5004.animator.model.AnimationModel;
 
+/**
+ * Type of Iview representing the visual view.
+ */
 public class PlayBackView extends JFrame implements IView {
-  private AnimationModel model;
-  JButton quitButton, loopButton, startButton, pauseButton, resumeButton,
-          restartButton, increaseSpeedButton, decreaseSpeedButton;
+  JButton quitButton;
+  JButton loopButton;
+  JButton startButton;
+  JButton pauseButton;
+  JButton resumeButton;
+  JButton restartButton;
+  JButton increaseSpeedButton;
+  JButton decreaseSpeedButton;
   JPanel buttonPanel;
   PlayBackPanel mainPanel;
-  JLabel display;
   private int speed;
-  private int currentTick = 0;
+  private final int currentTick = 0;
 
+  /**
+   * Constructor for the playback view.
+   * @param model the model the playback view is representing
+   */
   public PlayBackView(AnimationModel model) {
     super();
-    this.model = model;
     this.setTitle("Playback View.");
-    Dimension canvasDimensions = new Dimension(model.getCanvas().getWidth() + model.getCanvas().getX(),
+    Dimension canvasDimensions = new Dimension(model.getCanvas().getWidth()
+            + model.getCanvas().getX(),
             model.getCanvas().getHeight() + model.getCanvas().getY());
 
 
     //Sets the size and the canvass offset
     this.setSize(model.getCanvas().getWidth(), model.getCanvas().getHeight());
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    //Point2D point = new Point2D(model.getCanvas().getX(), model.getCanvas().getY()); //is this needed?
 
     //Set preferred pane
     this.setLayout(new BorderLayout());

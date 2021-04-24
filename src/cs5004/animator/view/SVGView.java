@@ -250,7 +250,7 @@ public class SVGView implements IView {
   }
 
   @Override
-  public void setListeners(ActionListener cliks, KeyListener keys) {
-
+  public void setListeners(ActionListener clicks, KeyListener keys) {
+    //SVG view does not have listeners, it is a method from the interface.
   }
 }
