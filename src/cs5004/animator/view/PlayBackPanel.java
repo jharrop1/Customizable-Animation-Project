@@ -15,14 +15,14 @@ import cs5004.animator.model.AvailableShapes;
  * This is the main panel in the frame that will have shapes from the playback model,
  * represented as graphics, painted on it.
  */
-public class PlaybackPanel extends JPanel {
+public class PlayBackPanel extends JPanel {
   private LinkedList<AbstractShape> shapes;
 
   /**
    * Constructs the Canvas Panel where shapes can be drawn.
    * @param dimension The dimensions for the panel.
    */
-  PlaybackPanel(Dimension dimension) {
+  PlayBackPanel(Dimension dimension) {
     this.setBackground(Color.WHITE);
     this.setSize(dimension);
   }

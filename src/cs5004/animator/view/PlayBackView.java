@@ -4,23 +4,18 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 import javax.swing.*;
 
-import cs5004.animator.controller.Controller;
-import cs5004.animator.controller.IController;
 import cs5004.animator.model.AnimationModel;
-import cs5004.animator.model.Point2D;
 
 public class PlayBackView extends JFrame implements IView {
   private AnimationModel model;
   JButton quitButton, loopButton, startButton, pauseButton, resumeButton,
           restartButton, increaseSpeedButton, decreaseSpeedButton;
   JPanel buttonPanel;
-  PlaybackPanel mainPanel;
+  PlayBackPanel mainPanel;
   JLabel display;
   private int speed;
   private int currentTick = 0;
@@ -40,7 +35,7 @@ public class PlayBackView extends JFrame implements IView {
 
     //Set preferred pane
     this.setLayout(new BorderLayout());
-    this.mainPanel = new PlaybackPanel(canvasDimensions);
+    this.mainPanel = new PlayBackPanel(canvasDimensions);
     mainPanel.setPreferredSize(canvasDimensions);
     JScrollPane pane = new JScrollPane(mainPanel);
     pane.setPreferredSize(canvasDimensions);
