@@ -44,5 +44,10 @@ public interface IView {
    */
   void setSpeed(int speed) throws UnsupportedOperationException;
 
+  /**
+   * Sets the listeners for keyclicks.
+   * @param clicks the mouse clicks.
+   * @param keys the keyclicks.
+   */
   void setListeners(ActionListener clicks, KeyListener keys);
 }

@@ -165,8 +165,16 @@ public interface AnimationModel {
    */
   AnimationModel getShapesAtTick(int tick);
 
+  /**
+   * Gets the final time of the last change.
+   * @return the time of the last change.
+   */
   int getFinalTime();
 
+  /**
+   * Sets the final time for the changes.
+   * @param finalTime the final time.
+   */
   void setFinalTime(int finalTime);
 
   /**
