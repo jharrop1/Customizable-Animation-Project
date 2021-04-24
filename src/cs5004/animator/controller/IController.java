@@ -28,11 +28,6 @@ public interface IController {
   void toggleLooping();
 
   /**
-   * Method pauses the animation at the current tick
-   */
-  void pause();
-
-  /**
    * Starts the animation again from tick 0.
    */
   void restart();

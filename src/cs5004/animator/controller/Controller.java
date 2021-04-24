@@ -2,6 +2,8 @@ package cs5004.animator.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 
 import javax.swing.Timer;
@@ -15,7 +17,7 @@ import cs5004.animator.view.TextView;
 import cs5004.animator.view.ViewType;
 import cs5004.animator.view.VisualView;
 
-public class Controller implements IController, ActionListener {
+public class Controller implements IController, ActionListener, KeyListener {
   private AnimationModel model;
   private IView view;
   private int speed;
@@ -37,6 +39,7 @@ public class Controller implements IController, ActionListener {
     //TODO: gotta set the action listener, see old visual view maybe for inspo
     this.timer = new Timer(1000 / this.speed, this);
     this.finalTime = model.getFinalTime();
+    view.setListeners(this, this);
     //TODO figure out outputs for views
   }
 
@@ -60,11 +63,6 @@ public class Controller implements IController, ActionListener {
 
   public AnimationModel getModel() {
     return model;
-  }
-
-  @Override
-  public void pause() {
-    this.timer.stop();
   }
 
   @Override
@@ -102,6 +100,42 @@ public class Controller implements IController, ActionListener {
 
   @Override
   public void actionPerformed(ActionEvent e) {
+
+    switch (e.getActionCommand()) {
+      case "Loop Button":
+        System.out.println("looping");
+        toggleLooping();
+        break;
+      case "Start Button":
+        System.out.println("Starting");
+        timer.start();
+        break;
+      case "Restart Button":
+        System.out.println("Restarting");
+        restart();
+        break;
+      case "Pause Button":
+        System.out.println("pausing");
+        this.timer.stop();
+        break;
+      case "Resume Button":
+        System.out.println("Resuming");
+        this.timer.start();
+        break;
+      case "Increase Speed Button":
+        System.out.println("speeding up");
+        adjustSpeed(1);
+        break;
+      case "Decrease Speed Button":
+        System.out.println("slowing down");
+        adjustSpeed(-1);
+        break;
+
+      default:
+        throw new IllegalStateException("Error: Unknown button");
+    }
+
+    /**
     this.view.setCurrentShapes(model.getShapesAtTick(currentTick));
     if (currentTick == this.finalTime) {
       this.timer.stop();
@@ -110,5 +144,20 @@ public class Controller implements IController, ActionListener {
       this.currentTick = 0;
       this.timer.restart();
     }
+     */
+  }
+
+  @Override
+  public void keyTyped(KeyEvent e) {
+  }
+
+  @Override
+  public void keyPressed(KeyEvent e) {
+
+  }
+
+  @Override
+  public void keyReleased(KeyEvent e) {
+
   }
 }

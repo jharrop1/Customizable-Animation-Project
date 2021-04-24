@@ -7,6 +7,8 @@ import cs5004.animator.model.AvailableChanges;
 import cs5004.animator.model.AvailableShapes;
 import cs5004.animator.model.ChangeComparator;
 
+import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -245,5 +247,10 @@ public class SVGView implements IView {
   @Override
   public void setSpeed(int speed) throws UnsupportedOperationException {
     this.speed = speed;
+  }
+
+  @Override
+  public void setListeners(ActionListener cliks, KeyListener keys) {
+
   }
 }

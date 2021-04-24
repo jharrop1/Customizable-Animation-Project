@@ -1,5 +1,7 @@
 package cs5004.animator.view;
 
+import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 
 import cs5004.animator.model.AnimationModel;
@@ -43,5 +45,10 @@ public class TextView implements IView {
   @Override
   public void setSpeed(int speed) throws UnsupportedOperationException {
     throw new UnsupportedOperationException("SVG View cannot set speed");
+  }
+
+  @Override
+  public void setListeners(ActionListener cliks, KeyListener keys) {
+
   }
 }

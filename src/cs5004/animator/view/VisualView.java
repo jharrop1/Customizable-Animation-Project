@@ -9,6 +9,8 @@ import cs5004.animator.model.AnimationModel;
 import cs5004.animator.model.Point2D;
 import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
+import java.awt.event.KeyListener;
+
 import javax.swing.Timer;
 
 /**
@@ -48,6 +50,11 @@ public class VisualView extends JFrame implements IView, ActionListener {
   @Override
   public void setSpeed(int speed) throws UnsupportedOperationException {
     this.speed = speed;
+  }
+
+  @Override
+  public void setListeners(ActionListener cliks, KeyListener keys) {
+
   }
 
   @Override
