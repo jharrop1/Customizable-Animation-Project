@@ -8,15 +8,13 @@ import java.io.IOException;
 
 import javax.swing.Timer;
 
-import cs5004.animator.model.AbstractChange;
 import cs5004.animator.model.AnimationModel;
 import cs5004.animator.view.IView;
-import cs5004.animator.view.PlayBackView;
-import cs5004.animator.view.SVGView;
-import cs5004.animator.view.TextView;
 import cs5004.animator.view.ViewType;
-import cs5004.animator.view.VisualView;
 
+/**
+ * Class representing the controller for the MVC model.
+ */
 public class Controller implements IController, ActionListener, KeyListener {
   private AnimationModel model;
   private IView view;
@@ -26,7 +24,16 @@ public class Controller implements IController, ActionListener, KeyListener {
   private boolean isLooping = false;
   private int finalTime;
 
-  public Controller(AnimationModel model, IView view, int speed, Appendable output) throws IOException {
+  /**
+   * Constructor for the controller class.
+   * @param model the model that is taken in.
+   * @param view a playback view to display the model of.
+   * @param speed the speed the process plays at.
+   * @param output output for the model.
+   * @throws IOException if the output runs into an error.
+   */
+  public Controller(AnimationModel model, IView view, int speed, Appendable output)
+          throws IOException {
     if (model == null) {
       throw new IllegalArgumentException("The provided model is null");
     } else if (speed < 1) {
@@ -53,7 +60,6 @@ public class Controller implements IController, ActionListener, KeyListener {
     return this.currentTick;
   }
 
-
   @Override
   public void toggleLooping() {
     if (isLooping) {
@@ -77,9 +83,8 @@ public class Controller implements IController, ActionListener, KeyListener {
     }
   }
 
-
   @Override
-  public void adjustSpeed(int factor){
+  public void adjustSpeed(int factor) {
     // speed must be >= 1
     if (factor + this.speed < 1) {
       this.speed = 1;
@@ -92,7 +97,7 @@ public class Controller implements IController, ActionListener, KeyListener {
 
   @Override
   public void go() throws IllegalStateException, IOException {
-    if(this.view.equals(ViewType.TEXT) || this.view.equals(ViewType.SVG)
+    if (this.view.equals(ViewType.TEXT) || this.view.equals(ViewType.SVG)
         || this.view.equals(ViewType.VISUAL)) {
       throw new IllegalStateException("Controller only run PlayBack view");
     } else {
@@ -100,8 +105,6 @@ public class Controller implements IController, ActionListener, KeyListener {
       this.timer.start();
     }
   }
-
-
 
   @Override
   public void actionPerformed(ActionEvent e) {
@@ -134,7 +137,7 @@ public class Controller implements IController, ActionListener, KeyListener {
         if (isLooping && currentTick >= finalTime) {
           this.currentTick = 1;
           this.timer.restart();
-          } else {
+        } else {
           view.setCurrentShapes(model.getShapesAtTick(currentTick));
           this.currentTick++;
         }
@@ -163,13 +166,11 @@ public class Controller implements IController, ActionListener, KeyListener {
   @Override
   public void keyReleased(KeyEvent e) {
     int key = e.getKeyCode();
-    if(key == KeyEvent.VK_P) {
+    if (key == KeyEvent.VK_P) {
       timer.stop();
     } else if (key == KeyEvent.VK_R) {
       timer.start();
     }
   }
-
-
 }
 
