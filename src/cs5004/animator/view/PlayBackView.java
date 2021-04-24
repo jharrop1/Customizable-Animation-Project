@@ -16,11 +16,11 @@ import cs5004.animator.model.Point2D;
 
 public class PlayBackView extends JFrame implements IView, ActionListener {
   private AnimationModel model;
-  private JButton quitButton, loopButton, startButton, pauseButton, resumeButton,
+  JButton quitButton, loopButton, startButton, pauseButton, resumeButton,
           restartButton, increaseSpeedButton, decreaseSpeedButton;
-  private JPanel buttonPanel;
-  private PlaybackPanel mainPanel;
-  private JLabel display;
+  JPanel buttonPanel;
+  PlaybackPanel mainPanel;
+  JLabel display;
   private int speed;
   private int currentTick = 0;
 
