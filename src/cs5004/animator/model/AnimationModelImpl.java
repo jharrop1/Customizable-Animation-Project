@@ -17,6 +17,7 @@ import cs5004.animator.util.AnimationBuilder;
  */
 public class AnimationModelImpl implements AnimationModel {
   private final HashMap<String, AbstractShape> shapeMap;
+  //private final HashMap<AbstractShape, List<AbstractChange>> ChangeMap;
   private final LinkedList<AbstractChange> changeList;
   private final Canvas canvas;
   private int finalTime = 0;
@@ -478,7 +479,7 @@ public class AnimationModelImpl implements AnimationModel {
               && r2 - r1 == 0 || g2 - g1 == 0 || b2 - b1 == 0)) {
         model.addMove(model.getShape(name), x1, y1, x2, y2, t1, t2);
       }
-      ChangeComparator byStartTime = new ChangeComparator();
+      ChangeComparatorSort byStartTime = new ChangeComparatorSort();
       Collections.sort(model.getChanges(), byStartTime);
       return this;
     }
