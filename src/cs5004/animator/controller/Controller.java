@@ -36,11 +36,11 @@ public class Controller implements IController, ActionListener, KeyListener {
     this.model = model;
     this.speed = speed;
     this.view = view;
-    //TODO: gotta set the action listener, see old visual view maybe for inspo
-    this.timer = new Timer(1000 / this.speed, this);
+
     this.finalTime = model.getFinalTime();
     view.setListeners(this, this);
-    //TODO figure out outputs for views
+    this.timer = new Timer(1000 / this.speed, this);
+    timer.setActionCommand("NextTick");
   }
 
   @Override
@@ -98,42 +98,52 @@ public class Controller implements IController, ActionListener, KeyListener {
     }
   }
 
+
+
   @Override
   public void actionPerformed(ActionEvent e) {
 
-    switch (e.getActionCommand()) {
-      case "Loop Button":
+    String command = e.getActionCommand();
+
+    switch (command) {
+      case "LoopButton":
         System.out.println("looping");
         toggleLooping();
         break;
-      case "Start Button":
+      case "StartButton":
         System.out.println("Starting");
         timer.start();
         break;
-      case "Restart Button":
+      case "RestartButton":
         System.out.println("Restarting");
         restart();
         break;
-      case "Pause Button":
+      case "PauseButton":
         System.out.println("pausing");
-        this.timer.stop();
+        timer.stop();
         break;
-      case "Resume Button":
+      case "ResumeButton":
         System.out.println("Resuming");
-        this.timer.start();
+        timer.start();
         break;
-      case "Increase Speed Button":
+      case "IncreaseSpeedButton":
         System.out.println("speeding up");
         adjustSpeed(1);
         break;
-      case "Decrease Speed Button":
+      case "DecreaseSpeedButton":
         System.out.println("slowing down");
         adjustSpeed(-1);
+        break;
+      case "NextTick":
+        view.setCurrentShapes(model.getShapesAtTick(currentTick));
+        this.currentTick++;
         break;
 
       default:
         throw new IllegalStateException("Error: Unknown button");
+
     }
+
 
     /**
     this.view.setCurrentShapes(model.getShapesAtTick(currentTick));
@@ -160,4 +170,7 @@ public class Controller implements IController, ActionListener, KeyListener {
   public void keyReleased(KeyEvent e) {
 
   }
+
+
 }
+

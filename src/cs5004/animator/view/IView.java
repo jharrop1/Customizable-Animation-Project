@@ -44,5 +44,5 @@ public interface IView {
    */
   void setSpeed(int speed) throws UnsupportedOperationException;
 
-  void setListeners(ActionListener cliks, KeyListener keys);
+  void setListeners(ActionListener clicks, KeyListener keys);
 }

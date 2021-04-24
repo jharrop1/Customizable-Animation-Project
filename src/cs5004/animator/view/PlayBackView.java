@@ -54,44 +54,46 @@ public class PlayBackView extends JFrame implements IView {
 
     //Loop Button
     loopButton = new JButton("Loop");
-    loopButton.setActionCommand("Loop Button");
+    loopButton.setActionCommand("LoopButton");
     buttonPanel.add(loopButton);
 
     //Start animation from beginning
     startButton = new JButton("Start");
-    startButton.setActionCommand("Start Button");
+    startButton.setActionCommand("StartButton");
     buttonPanel.add(startButton);
 
     //Restart animation from beginning, basically the same as start
     restartButton = new JButton("Restart");
-    restartButton.setActionCommand("Restart Button");
+    restartButton.setActionCommand("RestartButton");
     buttonPanel.add(restartButton);
 
     // Pause button
     pauseButton = new JButton("Pause");
-    pauseButton.setActionCommand("Pause Button");
+    pauseButton.setActionCommand("PauseButton");
     buttonPanel.add(pauseButton);
 
     //Resume animation from pause button
     resumeButton = new JButton("Resume");
-    resumeButton.setActionCommand("Pause Button");
+    resumeButton.setActionCommand("ResumeButton");
     buttonPanel.add(resumeButton);
 
     //Resume animation from pause button
     increaseSpeedButton = new JButton("Speed +");
-    increaseSpeedButton.setActionCommand("Increase Speed Button");
+    increaseSpeedButton.setActionCommand("IncreaseSpeedButton");
     buttonPanel.add(increaseSpeedButton);
 
     //Resume animation from pause button
     decreaseSpeedButton = new JButton("Speed -");
-    decreaseSpeedButton.setActionCommand("Decrease Speed Button");
+    decreaseSpeedButton.setActionCommand("DecreaseSpeedButton");
     buttonPanel.add(decreaseSpeedButton);
     //Quit Button
     quitButton = new JButton("Quit");
     quitButton.addActionListener((ActionEvent e) -> System.exit(0));
     buttonPanel.add(quitButton);
-    //this.timer = new Timer(1000 / this.speed, this);
+
+    this.setVisible(true);
     this.pack();
+
   }
 
   @Override
