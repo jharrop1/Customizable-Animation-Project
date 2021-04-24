@@ -36,7 +36,6 @@ public class Controller implements IController, ActionListener, KeyListener {
     this.model = model;
     this.speed = speed;
     this.view = view;
-
     this.finalTime = model.getFinalTime();
     view.setListeners(this, this);
     this.timer = new Timer(1000 / this.speed, this);
@@ -56,9 +55,13 @@ public class Controller implements IController, ActionListener, KeyListener {
 
   @Override
   public void toggleLooping() {
-    if (this.getTick() >= model.getFinalTime()) {
-      this.setTick(1);
+    if (isLooping) {
+      System.out.println("Stop looping");
+      isLooping = false;
+      return;
     }
+    System.out.println("Start looping");
+    isLooping = true;
   }
 
   public AnimationModel getModel() {
@@ -135,8 +138,13 @@ public class Controller implements IController, ActionListener, KeyListener {
         adjustSpeed(-1);
         break;
       case "NextTick":
-        view.setCurrentShapes(model.getShapesAtTick(currentTick));
-        this.currentTick++;
+        if (isLooping && currentTick >= finalTime) {
+          this.currentTick = 1;
+          this.timer.restart();
+          } else {
+          view.setCurrentShapes(model.getShapesAtTick(currentTick));
+          this.currentTick++;
+        }
         break;
 
       default:
