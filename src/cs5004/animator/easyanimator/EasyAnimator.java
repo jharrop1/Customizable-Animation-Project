@@ -41,7 +41,14 @@ public class EasyAnimator {
             break;
           case "-view":
             i++;
-            viewType = ViewType.getType(args[i]);
+            try {
+              viewType = ViewType.getType(args[i]);
+            } catch (IllegalArgumentException e) {
+              JFrame badArgs = new JFrame();
+              JOptionPane.showMessageDialog(badArgs, "Please give a valid view type.",
+                  "Warning",
+                  JOptionPane.WARNING_MESSAGE);
+            }
             break;
           case "-out":
             i++;
@@ -53,8 +60,9 @@ public class EasyAnimator {
             break;
           default:
             JFrame badArgs = new JFrame();
-            JOptionPane.showMessageDialog(badArgs, "Warning",
-                "Precede arguments with -speed, -out, -in, or -view.",
+            JOptionPane.showMessageDialog(badArgs, "Precede" +
+                    " arguments with -speed, -out, -in, or -view.",
+                "Warning",
                 JOptionPane.WARNING_MESSAGE);
         }
       }
@@ -62,16 +70,16 @@ public class EasyAnimator {
 
     if (fileNameIn.equals("")) {
       JFrame noFiles = new JFrame();
-      JOptionPane.showMessageDialog(noFiles, "Warning",
-              "Input file name must be provided.", JOptionPane.WARNING_MESSAGE);
+      JOptionPane.showMessageDialog(noFiles, "Input file name must be provided.",
+              "Warning", JOptionPane.WARNING_MESSAGE);
     } else if (viewType == null) {
       JFrame noType = new JFrame();
-      JOptionPane.showMessageDialog(noType, "Warning",
-          "A view type must be provided.", JOptionPane.WARNING_MESSAGE);
+      JOptionPane.showMessageDialog(noType, "A view type must be provided.",
+          "Warning", JOptionPane.WARNING_MESSAGE);
     } else if (speed <= 0) {
       JFrame badSpeed = new JFrame();
-      JOptionPane.showMessageDialog(badSpeed, "Warning",
-          "Provided speed must be positive.", JOptionPane.WARNING_MESSAGE);
+      JOptionPane.showMessageDialog(badSpeed, "Provided speed must be positive.",
+          "Warning", JOptionPane.WARNING_MESSAGE);
     }
     //TODO fix the main, our last submission was messed up
     try {
@@ -97,8 +105,6 @@ public class EasyAnimator {
         } else {
           view.run();
         }
-        Controller controller = new Controller(model, view, speed, System.out);
-        controller.go();
       }
 
     } catch (IOException e) {

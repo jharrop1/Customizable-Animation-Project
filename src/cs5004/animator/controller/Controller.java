@@ -16,17 +16,13 @@ import cs5004.animator.view.ViewType;
 import cs5004.animator.view.VisualView;
 
 public class Controller implements IController, ActionListener {
-
-
   private AnimationModel model;
   private IView view;
   private int speed;
   private Timer timer;
   private int currentTick = 1;
-  private boolean looping = false;
+  private boolean isLooping = false;
   private int finalTime;
-
-
 
   public Controller(AnimationModel model, IView view, int speed, Appendable output) throws IOException {
     if (model == null) {
@@ -41,7 +37,6 @@ public class Controller implements IController, ActionListener {
     //TODO: gotta set the action listener, see old visual view maybe for inspo
     this.timer = new Timer(1000 / this.speed, this);
     this.finalTime = model.getFinalTime();
-
     //TODO figure out outputs for views
   }
 
@@ -59,7 +54,7 @@ public class Controller implements IController, ActionListener {
   @Override
   public void toggleLooping() {
     if (this.getTick() >= model.getFinalTime()) {
-      setTick(1);
+      this.setTick(1);
     }
   }
 
@@ -70,8 +65,6 @@ public class Controller implements IController, ActionListener {
   @Override
   public void pause() {
     this.timer.stop();
-    // TODO: may have to have the view replay the current loop on loop
-    //  or just display that set of shapes statically
   }
 
   @Override
@@ -98,16 +91,24 @@ public class Controller implements IController, ActionListener {
   }
 
   @Override
-  public void go() throws IOException {
+  public void go() throws IllegalStateException, IOException {
     if(this.view.equals(ViewType.TEXT) || this.view.equals(ViewType.SVG) || this.view.equals(ViewType.VISUAL)) {
-      view.run();
+      throw new IllegalStateException("Controller only run PlayBack view");
     } else {
       view.run();
+      this.timer.start();
     }
   }
 
   @Override
   public void actionPerformed(ActionEvent e) {
-
+    this.view.setCurrentShapes(model.getShapesAtTick(currentTick));
+    if (currentTick == this.finalTime) {
+      this.timer.stop();
+    }
+    if (this.isLooping && this.currentTick == this.finalTime) {
+      this.currentTick = 0;
+      this.timer.restart();
+    }
   }
 }

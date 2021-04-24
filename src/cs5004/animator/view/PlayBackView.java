@@ -137,7 +137,6 @@ public class PlayBackView extends JFrame implements IView, ActionListener {
   @Override
   public void run() throws IOException {
     this.setVisible(true);
-    //this.timer.start();
   }
 
   @Override
