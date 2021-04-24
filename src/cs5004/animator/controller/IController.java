@@ -5,7 +5,8 @@ import java.io.IOException;
 import cs5004.animator.model.AnimationModel;
 
 /**
- * Interface for the controller class.
+ * Interface for the controller class. The controller manages ticks, holds the model, and handles
+ * inputs from the view, changing animation behaviors for the user.
  */
 public interface IController {
 
