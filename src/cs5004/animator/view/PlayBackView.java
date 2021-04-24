@@ -56,7 +56,7 @@ public class PlayBackView extends JFrame implements IView, ActionListener {
     loopButton.addMouseListener(new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent e) {
-        controller.toggleLooping();
+        //controller.toggleLooping();
         super.mousePressed(e);
       }
     });
@@ -77,7 +77,7 @@ public class PlayBackView extends JFrame implements IView, ActionListener {
     restartButton.addMouseListener(new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent e) {
-        controller.restart();
+        //controller.restart();
         super.mousePressed(e);
       }
     });
@@ -88,7 +88,7 @@ public class PlayBackView extends JFrame implements IView, ActionListener {
     pauseButton.addMouseListener(new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent e) {
-        timer.stop();
+        //timer.stop();
         super.mousePressed(e);
       }
     });
@@ -99,7 +99,7 @@ public class PlayBackView extends JFrame implements IView, ActionListener {
     resumeButton.addMouseListener(new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent e) {
-        timer.start();
+        //timer.start();
         super.mousePressed(e);
       }
     });
@@ -110,7 +110,7 @@ public class PlayBackView extends JFrame implements IView, ActionListener {
     increaseSpeedButton.addMouseListener(new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent e) {
-        controller.adjustSpeed(1);
+        //controller.adjustSpeed(1);
         super.mousePressed(e);
       }
     });
@@ -121,7 +121,7 @@ public class PlayBackView extends JFrame implements IView, ActionListener {
     decreaseSpeedButton.addMouseListener(new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent e) {
-        controller.adjustSpeed(-1);
+        //controller.adjustSpeed(-1);
         super.mousePressed(e);
       }
     });
@@ -137,7 +137,7 @@ public class PlayBackView extends JFrame implements IView, ActionListener {
   @Override
   public void run() throws IOException {
     this.setVisible(true);
-    this.timer.start();
+    //this.timer.start();
   }
 
   @Override

@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Collections;
+
 
 import java.util.stream.Collectors;
 
@@ -15,7 +17,7 @@ import cs5004.animator.util.AnimationBuilder;
  */
 public class AnimationModelImpl implements AnimationModel {
   private final HashMap<String, AbstractShape> shapeMap;
-  private final HashMap<AbstractChange, String> changeMap;
+  private final LinkedList<AbstractChange> changeList;
   private final Canvas canvas;
   private int finalTime = 0;
 
@@ -24,7 +26,7 @@ public class AnimationModelImpl implements AnimationModel {
    */
   public AnimationModelImpl() {
     this.shapeMap = new LinkedHashMap<>();
-    this.changeMap = new HashMap<>();
+    this.changeList = new LinkedList<>();
     this.canvas = new Canvas();
   }
 
@@ -45,12 +47,9 @@ public class AnimationModelImpl implements AnimationModel {
 
   @Override
   public LinkedList<AbstractChange> getChanges() {
-    LinkedList<AbstractChange> changes = new LinkedList<>(changeMap.keySet());
-    ChangeComparator byStartTime = new ChangeComparator();
-    List<AbstractChange> sortedChangeList = changes
-            .stream().sorted(byStartTime).collect(Collectors.toList());
-    return changes;
+    return changeList;
   }
+
   @Override
   public int getFinalTime() {
     return finalTime;
@@ -160,7 +159,7 @@ public class AnimationModelImpl implements AnimationModel {
    * @return boolean indicating overlap in conflicting changes
    */
   private boolean timeOverlap(AbstractShape shape, AvailableChanges type, int t1, int t2) {
-    for (Change c : this.changeMap.keySet()) {
+    for (Change c : this.changeList) {
       //two changes of the same type cannot occur at once
       if (type == c.getType()
           // same shape?
@@ -194,8 +193,8 @@ public class AnimationModelImpl implements AnimationModel {
     if (!shapeMap.containsKey(shape.getLabel())) {
       this.addShape(shape);
     }
-    changeMap.put(new Move(shape, shape.getLabel(),
-        startX, startY, endX, endY, t1, t2), shape.getLabel());
+    changeList.add(new Move(shape, shape.getLabel(),
+        startX, startY, endX, endY, t1, t2));
   }
 
   @Override
@@ -224,8 +223,8 @@ public class AnimationModelImpl implements AnimationModel {
     if (!shapeMap.containsKey(shape.getLabel())) {
       this.addShape(shape);
     }
-    changeMap.put(new Recolor(shape, shape.getLabel(),
-        startR, startG, startB, startA, endR, endG, endB, endA, t1, t2), shape.getLabel());
+    changeList.add(new Recolor(shape, shape.getLabel(),
+        startR, startG, startB, startA, endR, endG, endB, endA, t1, t2));
   }
 
   @Override
@@ -246,15 +245,18 @@ public class AnimationModelImpl implements AnimationModel {
     if (!shapeMap.containsKey(shape.getLabel())) {
       this.addShape(shape);
     }
-    changeMap.put(new Resize(shape, shape.getLabel(),
-        startW, startH, endW, endH, t1, t2), shape.getLabel());
+    changeList.add(new Resize(shape, shape.getLabel(),
+        startW, startH, endW, endH, t1, t2));
   }
 
   @Override
   public int tweener(int startTime, int endTime, int tick, int startVal, int endVal)
       throws IllegalArgumentException {
-    if (tick < startTime || tick > endTime) {
+    if (tick < startTime) {
       throw new IllegalArgumentException("tick must be within start/end times for tweening");
+    }
+    if (tick >= endTime) {
+      return endVal;
     }
     if (startVal != endVal) {
       Double endT = new Double(endTime);
@@ -282,9 +284,9 @@ public class AnimationModelImpl implements AnimationModel {
       throw new IllegalArgumentException("Time value must be >= 0");
     }
     AnimationModelImpl modelCopy = new AnimationModelImpl();
-    for (AbstractChange change : changeMap.keySet()) {
+    for (AbstractChange change : changeList) {
       // change is in bounds
-      if (change.getStartTime() <= currentTick && change.getEndTime() >= currentTick) {
+      if (change.getStartTime() <= currentTick) {
         // check for types
         if (change.getType().equals(AvailableChanges.MOVE)) {
           // tween location
@@ -358,7 +360,7 @@ public class AnimationModelImpl implements AnimationModel {
     HashMap<String, AbstractChange> appearMap = new LinkedHashMap<>();
     ArrayList<AbstractChange> changeListNoAppear = new ArrayList<>();
     ChangeComparator byStartTime = new ChangeComparator();
-    List<AbstractChange> sortedChanges = changeMap.keySet().stream().
+    List<AbstractChange> sortedChanges = changeList.stream().
             sorted(byStartTime).collect(Collectors.toList());
 
     //Adding the different shapes to the model string
@@ -476,6 +478,8 @@ public class AnimationModelImpl implements AnimationModel {
               && r2 - r1 == 0 || g2 - g1 == 0 || b2 - b1 == 0)) {
         model.addMove(model.getShape(name), x1, y1, x2, y2, t1, t2);
       }
+      ChangeComparator byStartTime = new ChangeComparator();
+      Collections.sort(model.getChanges(), byStartTime);
       return this;
     }
   }
