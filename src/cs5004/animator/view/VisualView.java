@@ -58,8 +58,8 @@ public class VisualView extends JFrame implements IView, ActionListener {
   }
 
   @Override
-  public void setListeners(ActionListener cliks, KeyListener keys) {
-
+  public void setListeners(ActionListener clicks, KeyListener keys) {
+    //Method is part of an interface for other portions
   }
 
   @Override
