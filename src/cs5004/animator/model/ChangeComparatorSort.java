@@ -2,6 +2,9 @@ package cs5004.animator.model;
 
 import java.util.Comparator;
 
+/**
+ * Comparator for the getShapesAtTick method.
+ */
 public class ChangeComparatorSort implements Comparator<AbstractChange> {
 
   /**

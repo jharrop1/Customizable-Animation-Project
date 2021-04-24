@@ -1,11 +1,14 @@
 package cs5004.animator.view;
 
-import java.awt.*;
-import java.awt.geom.Ellipse2D;
+import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.Ellipse2D;
+import java.awt.Shape;
 import java.util.LinkedList;
-
-import javax.swing.*;
 
 import cs5004.animator.model.AbstractShape;
 import cs5004.animator.model.AnimationModel;

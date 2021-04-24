@@ -92,7 +92,7 @@ public class EasyAnimator {
         IView view = ViewMaker.makeView(viewType, model, fileOut, speed);
         if (viewType.equals(ViewType.PLAYBACK)) {
           Controller controller = new Controller(model, view, speed, fileOut);
-          controller.go();
+          controller.goController();
         } else {
           view.run();
         }
@@ -101,7 +101,7 @@ public class EasyAnimator {
         IView view = ViewMaker.makeView(viewType, model, System.out, speed);
         if (viewType.equals(ViewType.PLAYBACK)) {
           Controller controller = new Controller(model, view, speed, System.out);
-          controller.go();
+          controller.goController();
         } else {
           view.run();
         }
@@ -120,7 +120,7 @@ public class EasyAnimator {
         IView view = ViewMaker.makeView(viewType, model, fileOut, speed);
         if (viewType.equals(ViewType.PLAYBACK)) {
           Controller controller = new Controller(model, view, speed, fileOut);
-          controller.go();
+          controller.goController();
         } else {
           view.run();
         }

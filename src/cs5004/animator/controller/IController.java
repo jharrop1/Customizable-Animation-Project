@@ -2,9 +2,9 @@ package cs5004.animator.controller;
 
 import java.io.IOException;
 
-import cs5004.animator.model.AnimationModel;
-import cs5004.animator.view.ViewType;
-
+/**
+ * Interface for the controller class.
+ */
 public interface IController {
 
   /**
@@ -40,6 +40,10 @@ public interface IController {
    */
   void adjustSpeed(int speed);
 
-  void go() throws IOException;
+  /**
+   * Method that runs the controller.
+   * @throws IOException if there is an error in the filereader
+   */
+  void goController() throws IOException;
 
 }

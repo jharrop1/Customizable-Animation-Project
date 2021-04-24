@@ -96,7 +96,7 @@ public class Controller implements IController, ActionListener, KeyListener {
   }
 
   @Override
-  public void go() throws IllegalStateException, IOException {
+  public void goController() throws IllegalStateException, IOException {
     if (this.view.equals(ViewType.TEXT) || this.view.equals(ViewType.SVG)
         || this.view.equals(ViewType.VISUAL)) {
       throw new IllegalStateException("Controller only run PlayBack view");
@@ -151,6 +151,7 @@ public class Controller implements IController, ActionListener, KeyListener {
 
   @Override
   public void keyTyped(KeyEvent e) {
+    //Model doesn't take in any key typed event but it is required by the interface
   }
 
   @Override
