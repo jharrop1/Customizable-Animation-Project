@@ -37,7 +37,8 @@ public class Controller implements IController, ActionListener, KeyListener {
     this.speed = speed;
     this.view = view;
     this.finalTime = model.getFinalTime();
-    view.setListeners(this, this);
+    this.view.setListeners(this, this);
+    //this.view.mainPanel.addKeyListener(this);
     this.timer = new Timer(1000 / this.speed, this);
     timer.setActionCommand("NextTick");
   }
@@ -56,11 +57,9 @@ public class Controller implements IController, ActionListener, KeyListener {
   @Override
   public void toggleLooping() {
     if (isLooping) {
-      System.out.println("Stop looping");
       isLooping = false;
       return;
     }
-    System.out.println("Start looping");
     isLooping = true;
   }
 
@@ -93,7 +92,8 @@ public class Controller implements IController, ActionListener, KeyListener {
 
   @Override
   public void go() throws IllegalStateException, IOException {
-    if(this.view.equals(ViewType.TEXT) || this.view.equals(ViewType.SVG) || this.view.equals(ViewType.VISUAL)) {
+    if(this.view.equals(ViewType.TEXT) || this.view.equals(ViewType.SVG)
+        || this.view.equals(ViewType.VISUAL)) {
       throw new IllegalStateException("Controller only run PlayBack view");
     } else {
       view.run();
@@ -110,32 +110,25 @@ public class Controller implements IController, ActionListener, KeyListener {
 
     switch (command) {
       case "LoopButton":
-        System.out.println("looping");
         toggleLooping();
         break;
       case "StartButton":
-        System.out.println("Starting");
         timer.start();
         break;
       case "RestartButton":
-        System.out.println("Restarting");
-        restart();
+        this.restart();
         break;
       case "PauseButton":
-        System.out.println("pausing");
         timer.stop();
         break;
       case "ResumeButton":
-        System.out.println("Resuming");
         timer.start();
         break;
       case "IncreaseSpeedButton":
-        System.out.println("speeding up");
         adjustSpeed(1);
         break;
       case "DecreaseSpeedButton":
-        System.out.println("slowing down");
-        adjustSpeed(-1);
+        this.adjustSpeed(-1);
         break;
       case "NextTick":
         if (isLooping && currentTick >= finalTime) {
@@ -151,18 +144,6 @@ public class Controller implements IController, ActionListener, KeyListener {
         throw new IllegalStateException("Error: Unknown button");
 
     }
-
-
-    /**
-    this.view.setCurrentShapes(model.getShapesAtTick(currentTick));
-    if (currentTick == this.finalTime) {
-      this.timer.stop();
-    }
-    if (this.isLooping && this.currentTick == this.finalTime) {
-      this.currentTick = 0;
-      this.timer.restart();
-    }
-     */
   }
 
   @Override
@@ -171,12 +152,23 @@ public class Controller implements IController, ActionListener, KeyListener {
 
   @Override
   public void keyPressed(KeyEvent e) {
-
+    int key = e.getKeyCode();
+    if (key == KeyEvent.VK_UP || key == KeyEvent.VK_RIGHT) {
+      this.adjustSpeed(1);
+    } else if (key == KeyEvent.VK_DOWN || key == KeyEvent.VK_LEFT) {
+      this.adjustSpeed(-1);
+    }
   }
 
   @Override
   public void keyReleased(KeyEvent e) {
-
+    int key = e.getKeyCode();
+    if(key == KeyEvent.VK_P) {
+      timer.stop();
+    } else if (key == KeyEvent.VK_R) {
+      System.out.println("run");
+      timer.start();
+    }
   }
 
 

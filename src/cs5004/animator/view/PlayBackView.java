@@ -132,6 +132,14 @@ public class PlayBackView extends JFrame implements IView {
     resumeButton.addActionListener(clicks);
     increaseSpeedButton.addActionListener(clicks);
     decreaseSpeedButton.addActionListener(clicks);
+    mainPanel.addKeyListener(keys);
+    startButton.addKeyListener(keys);
+    loopButton.addKeyListener(keys);
+    pauseButton.addKeyListener(keys);
+    restartButton.addKeyListener(keys);
+    resumeButton.addKeyListener(keys);
+    increaseSpeedButton.addKeyListener(keys);
+    decreaseSpeedButton.addKeyListener(keys);
   }
 
 
