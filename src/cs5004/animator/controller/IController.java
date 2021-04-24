@@ -35,7 +35,7 @@ public interface IController {
 
   /**
    * Gets the controller's model.
-   * @return
+   * @return the model in the controller.
    */
   AnimationModel getModel();
 
