@@ -2,6 +2,8 @@ package cs5004.animator.controller;
 
 import java.io.IOException;
 
+import cs5004.animator.model.AnimationModel;
+
 /**
  * Interface for the controller class.
  */
@@ -20,8 +22,6 @@ public interface IController {
    */
   int getTick();
 
-  //TODO we will have to figure out how to determine the last tick so we know the
-  // animation is done and can loop
   /**
    * Set whether or not the animation loops back to the start once it is done.
    */
@@ -32,7 +32,12 @@ public interface IController {
    */
   void restart();
 
-  //TODO not sure if the entered int should be the new speed or an int to be added to speed
+  /**
+   * Gets the controller's model.
+   * @return
+   */
+  AnimationModel getModel();
+
   /**
    * Alters the speed (per tick) at which the animation proceeds. If the animation hits 0
    * or less speed it will pause.

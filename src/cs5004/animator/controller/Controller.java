@@ -69,6 +69,7 @@ public class Controller implements IController, ActionListener, KeyListener {
     isLooping = true;
   }
 
+  @Override
   public AnimationModel getModel() {
     return model;
   }
