@@ -19,5 +19,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" scope="TEST" name="org.assertj:assertj-swing-junit-4.5:1.2.0" level="project" />
   </component>
 </module>
