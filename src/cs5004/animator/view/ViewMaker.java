@@ -20,7 +20,7 @@ public class ViewMaker {
    * @return A view (depends on which type given)
    * @throws IllegalArgumentException If the given model is null or if the speed is < 0
    */
-  public static IView makeView(ViewType type, AnimationModel model, Controller controller, Appendable output, int speed)
+  public static IView makeView(ViewType type, AnimationModel model, Appendable output, int speed)
           throws IllegalArgumentException, IOException {
     if (model == null) {
       throw new IllegalArgumentException("The provided model is null");

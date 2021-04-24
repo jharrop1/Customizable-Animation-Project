@@ -81,11 +81,23 @@ public class EasyAnimator {
               new AnimationModelImpl.Builder());
       if (!fileNameOut.equals("")) {
         FileWriter fileOut = new FileWriter(fileNameOut);
-        Controller controller = new Controller(model, viewType, speed, fileOut);
-        controller.go();
+        IView view = ViewMaker.makeView(viewType, model, fileOut, speed);
+        if (viewType.equals(ViewType.PLAYBACK)) {
+          Controller controller = new Controller(model, view, speed, fileOut);
+          controller.go();
+        } else {
+          view.run();
+        }
         fileOut.close();
       } else {
-        Controller controller = new Controller(model, viewType, speed, System.out);
+        IView view = ViewMaker.makeView(viewType, model, System.out, speed);
+        if (viewType.equals(ViewType.PLAYBACK)) {
+          Controller controller = new Controller(model, view, speed, System.out);
+          controller.go();
+        } else {
+          view.run();
+        }
+        Controller controller = new Controller(model, view, speed, System.out);
         controller.go();
       }
 
@@ -99,10 +111,14 @@ public class EasyAnimator {
         FileReader fileIn = new FileReader(fileNameIn);
         AnimationModel model = AnimationReader.parseFile(fileIn,
             new AnimationModelImpl.Builder());
-        Controller controller = new Controller(model, viewType, speed, fileOut);
-        controller.go();
+        IView view = ViewMaker.makeView(viewType, model, fileOut, speed);
+        if (viewType.equals(ViewType.PLAYBACK)) {
+          Controller controller = new Controller(model, view, speed, fileOut);
+          controller.go();
+        } else {
+          view.run();
+        }
         fileOut.close();
-        //TODO: controller
       } catch (IOException ee) {
         // could not create output file writer
         // or could not find file in

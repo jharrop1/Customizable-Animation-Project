@@ -28,7 +28,7 @@ public class Controller implements IController, ActionListener {
 
 
 
-  public Controller(AnimationModel model, ViewType type, int speed, Appendable output) throws IOException {
+  public Controller(AnimationModel model, IView view, int speed, Appendable output) throws IOException {
     if (model == null) {
       throw new IllegalArgumentException("The provided model is null");
     } else if (speed < 1) {
@@ -37,22 +37,12 @@ public class Controller implements IController, ActionListener {
 
     this.model = model;
     this.speed = speed;
+    this.view = view;
     //TODO: gotta set the action listener, see old visual view maybe for inspo
     this.timer = new Timer(1000 / this.speed, this);
     this.finalTime = model.getFinalTime();
 
     //TODO figure out outputs for views
-    if (type.equals(ViewType.TEXT)) {
-      this.view = new TextView(model, output);
-    } else if (type.equals(ViewType.SVG)) {
-      this.view = new SVGView(model, output, speed);
-    } else if (type.equals(ViewType.VISUAL)) {
-      this.view = new VisualView(model, speed);
-    } else if (type.equals(ViewType.PLAYBACK)) {
-      this.view = new PlayBackView(this.model);
-    } else {
-      throw new IllegalArgumentException("Type must be an IView (text, svg, visual)");
-    }
   }
 
   @Override
