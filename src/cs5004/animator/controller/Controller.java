@@ -166,7 +166,6 @@ public class Controller implements IController, ActionListener, KeyListener {
     if(key == KeyEvent.VK_P) {
       timer.stop();
     } else if (key == KeyEvent.VK_R) {
-      System.out.println("run");
       timer.start();
     }
   }
