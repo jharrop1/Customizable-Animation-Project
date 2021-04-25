@@ -15,7 +15,7 @@ public interface AnimationModel {
    * @param label String ID for possibly existent shape
    * @return boolean indicating existence of the shape
    */
-  public boolean hasShape(String label);
+  boolean hasShape(String label);
 
   /**
    * Gets all the shapes in the model.
@@ -142,20 +142,6 @@ public interface AnimationModel {
    */
   void addResize(AbstractShape shape,
                  int startW, int startH, int endW, int endH, int t1, int t2);
-
-  /**
-   * Method helps to "tween" a value when visualizing a change from tick to tick. It is used in
-   * getShapesAtTick().
-   * @param startTime t1 integer for the formula's start time
-   * @param endTime t2 integer for the formula's end time
-   * @param tick the current tick, that should be between the previous two values
-   * @param startVal the initial value
-   * @param endVal the end state value
-   * @return an intermediate "tweened" value based on time
-   * @throws IllegalArgumentException when tick is not between start/end times
-   */
-  int tweener(int startTime, int endTime, int tick, int startVal, int endVal);
-
 
   /**
    * Takes in a time interval and returns the shapes at that point.

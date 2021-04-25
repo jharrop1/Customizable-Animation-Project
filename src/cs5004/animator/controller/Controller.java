@@ -45,7 +45,6 @@ public class Controller implements IController, ActionListener, KeyListener {
     this.view = view;
     this.finalTime = model.getFinalTime();
     this.view.setListeners(this, this);
-    //this.view.mainPanel.addKeyListener(this);
     this.timer = new Timer(1000 / this.speed, this);
     timer.setActionCommand("NextTick");
   }

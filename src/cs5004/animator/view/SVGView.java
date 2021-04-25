@@ -40,7 +40,6 @@ public class SVGView implements IView {
 
   }
 
-  // TODO add in IO exception/trycatch handling like in the last lab
 
   /**
    * Creates a canvass with the specified dimensions for the SVG.

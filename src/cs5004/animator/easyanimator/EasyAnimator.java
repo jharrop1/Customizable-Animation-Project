@@ -81,7 +81,6 @@ public class EasyAnimator {
       JOptionPane.showMessageDialog(badSpeed, "Provided speed must be positive.",
           "Warning", JOptionPane.WARNING_MESSAGE);
     }
-    //TODO fix the main, our last submission was messed up
     try {
       // build model with file reader
       FileReader fileIn = new FileReader(fileNameIn);

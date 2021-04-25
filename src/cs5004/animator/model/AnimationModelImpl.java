@@ -250,8 +250,19 @@ public class AnimationModelImpl implements AnimationModel {
         startW, startH, endW, endH, t1, t2));
   }
 
-  @Override
-  public int tweener(int startTime, int endTime, int tick, int startVal, int endVal)
+
+  /**
+   * Method helps to "tween" a value when visualizing a change from tick to tick. It is used in
+   * getShapesAtTick().
+   * @param startTime t1 integer for the formula's start time
+   * @param endTime t2 integer for the formula's end time
+   * @param tick the current tick, that should be between the previous two values
+   * @param startVal the initial value
+   * @param endVal the end state value
+   * @return an intermediate "tweened" value based on time
+   * @throws IllegalArgumentException when tick is not between start/end times
+   */
+  private int tweener(int startTime, int endTime, int tick, int startVal, int endVal)
       throws IllegalArgumentException {
     if (tick < startTime) {
       throw new IllegalArgumentException("tick must be within start/end times for tweening");
@@ -288,7 +299,7 @@ public class AnimationModelImpl implements AnimationModel {
     for (AbstractChange change : changeList) {
       // change is in bounds
       if (change.getStartTime() <= currentTick) {
-        // check for types
+        // MOVE
         if (change.getType().equals(AvailableChanges.MOVE)) {
           // tween location
           int x = tweener(change.getStartTime(), change.getEndTime(), currentTick,
@@ -306,6 +317,7 @@ public class AnimationModelImpl implements AnimationModel {
             moveCopy.setLocation(location);
             modelCopy.addShape(moveCopy);
           }
+          //COLORS
         } else if (change.getType().equals(AvailableChanges.RECOLOR)) {
           // tween colors
           int r = tweener(change.getStartTime(), change.getEndTime(), currentTick,
@@ -332,6 +344,7 @@ public class AnimationModelImpl implements AnimationModel {
             colorCopy.setOpacity(a);
             modelCopy.addShape(colorCopy);
           }
+          //SIZE
         } else if (change.getType().equals(AvailableChanges.RESIZE)) {
           // tween dimensions
           int w = tweener(change.getStartTime(), change.getEndTime(), currentTick,
