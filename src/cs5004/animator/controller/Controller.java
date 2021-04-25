@@ -74,6 +74,16 @@ public class Controller implements IController, ActionListener, KeyListener {
   }
 
   @Override
+  public int getSpeed() {
+    return this.speed;
+  }
+
+  @Override
+  public boolean isLooping() {
+    return this.isLooping;
+  }
+
+  @Override
   public void restart() {
     this.currentTick = 1;
     if (this.timer.isRunning()) {
@@ -97,8 +107,9 @@ public class Controller implements IController, ActionListener, KeyListener {
 
   @Override
   public void goController() throws IllegalStateException, IOException {
-    if (this.view.equals(ViewType.TEXT) || this.view.equals(ViewType.SVG)
-        || this.view.equals(ViewType.VISUAL)) {
+    if (this.view.getViewType().equals(ViewType.TEXT)
+        || this.view.getViewType().equals(ViewType.SVG)
+        || this.view.getViewType().equals(ViewType.VISUAL)) {
       throw new IllegalStateException("Controller only run PlayBack view");
     } else {
       view.run();

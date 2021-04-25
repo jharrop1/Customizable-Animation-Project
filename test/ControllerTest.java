@@ -9,8 +9,10 @@ import cs5004.animator.model.AnimationModelImpl;
 import cs5004.animator.util.AnimationReader;
 import cs5004.animator.view.PlayBackView;
 
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 
 /**
@@ -83,5 +85,33 @@ public class ControllerTest {
     controller.setTick(70);
     controller.restart();
     assertEquals(1, controller.getTick());
+  }
+
+  @Test
+  public void testLoop() throws IOException {
+    FileReader fileIn = new FileReader("resources/smalldemo.txt");
+    AnimationModel model = AnimationReader.parseFile(fileIn,
+        new AnimationModelImpl.Builder());
+    PlayBackView smalldemoPB = new PlayBackView(model);
+    Controller controller = new Controller(model, smalldemoPB, 5, System.out);
+    controller.setTick(35);
+    controller.restart();
+    assertFalse(controller.isLooping());
+    controller.toggleLooping();
+    assertTrue(controller.isLooping());
+  }
+
+  @Test
+  public void testSpeed() throws IOException {
+    FileReader fileIn = new FileReader("resources/smalldemo.txt");
+    AnimationModel model = AnimationReader.parseFile(fileIn,
+        new AnimationModelImpl.Builder());
+    PlayBackView smalldemoPB = new PlayBackView(model);
+    Controller controller = new Controller(model, smalldemoPB, 5, System.out);
+    controller.setTick(35);
+    controller.restart();
+    assertEquals(controller.getSpeed(), 5);
+    controller.adjustSpeed(5);
+    assertEquals(controller.getSpeed(), 10);
   }
 }

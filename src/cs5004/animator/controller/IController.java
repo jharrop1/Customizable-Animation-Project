@@ -29,6 +29,18 @@ public interface IController {
   void toggleLooping();
 
   /**
+   * Determines whether or not an animation is looping (for testing).
+   * @return boolean indicating looping state.
+   */
+  boolean isLooping();
+
+  /**
+   * Determines the speed set for an animation.
+   * @return int indicating speed set.
+   */
+  int getSpeed();
+
+  /**
    * Starts the animation again from tick 0.
    */
   void restart();
